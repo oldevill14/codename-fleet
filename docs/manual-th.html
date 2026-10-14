@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>คู่มือ codename</title>
+<meta name="description" content="คู่มือภาษาไทยของ codename: กองเรือ AI บน Orca สำหรับ Windows">
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--ink:#1d2330;--mute:#5b6475;--line:#dde2ea;--accent:#0f766e;--warn:#b45309;--warnbg:#fff7ed;--code:#eef2f7}
+@media (prefers-color-scheme:dark){:root{--bg:#12151b;--card:#1a1f27;--ink:#e6e9ef;--mute:#9aa3b2;--line:#2c3440;--accent:#2dd4bf;--warn:#fbbf24;--warnbg:#2a2212;--code:#232a35}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Leelawadee UI","Segoe UI",Tahoma,sans-serif}
+main{max-width:960px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:28px;margin:0 0 4px}
+h2{font-size:21px;margin:36px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+h3{font-size:17px;margin:20px 0 6px}
+p.sub{color:var(--mute);margin:0 0 20px}
+nav{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 18px}
+nav ol{margin:0;padding-left:20px;columns:2;column-gap:28px}
+a{color:var(--accent)}
+code,pre{font-family:Consolas,"Cascadia Mono",monospace;font-size:14px}
+code{background:var(--code);padding:1px 6px;border-radius:5px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:8px 0;line-height:1.5}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:8px 0}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--code);font-weight:600}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0}
+.warn{background:var(--warnbg);border-color:var(--warn)}
+.warn b:first-child{color:var(--warn)}
+.tbl{overflow-x:auto}
+@media (max-width:640px){nav ol{columns:1}}
+</style>
+</head>
+<body>
+<main>
+<h1>คู่มือ codename</h1>
+<p class="sub">กองเรือเผ่า codename บน Orca · โปรแกรม codename v0.2.1 · ปรับปรุง 14 ต.ค. 2026 · <a href="https://github.com/oldevill14/codename-fleet">GitHub</a></p>
+
+<div class="box">คำเรียก: ทั้ง<b>โปรแกรม</b>และ<b>สมาชิกแต่ละตัว</b>ในกองเรือเรียกว่า codename · บ้านของสมาชิกอยู่ที่ <code>D:\fleet\codenames\&lt;ชื่อ&gt;</code></div>
+<nav><ol start="0">
+<li><a href="#install">ติดตั้งตั้งแต่แรก (เครื่องใหม่)</a></li>
+<li><a href="#overview">ของที่ติดตั้งอยู่ที่ไหน</a></li>
+<li><a href="#daily">เริ่มวัน / จบวัน</a></li>
+<li><a href="#cmds">คำสั่งทั้งหมด</a></li>
+<li><a href="#talk">คุยกับ codename</a></li>
+<li><a href="#birth">ให้กำเนิด codename ใหม่</a></li>
+<li><a href="#code">งานโค้ด: worktree และทีม</a></li>
+<li><a href="#memory">ความจำกลาง (arra)</a></li>
+<li><a href="#free">โหมดฟรี (Free Claude Code)</a></li>
+<li><a href="#trouble">แก้ปัญหา</a></li>
+<li><a href="#rules">ข้อห้ามและไฟล์สำคัญ</a></li>
+</ol></nav>
+
+<h2 id="install">0. ติดตั้งตั้งแต่แรก (เครื่องใหม่)</h2>
+<div class="box"><b>ทางลัด:</b> เปิด Claude Code หรือ Codex ใน PowerShell → วาง prompt ติดตั้ง (ขอไฟล์ได้จากผู้ดูแลกองเรือ) ลงไป → agent ถาม 3 ข้อแล้วติดตั้งให้ครบตามขั้นด้านล่าง</div>
+<p>ถ้าจะทำเอง ให้รันทีละขั้นใน <b>PowerShell</b> (คั่นคำสั่งด้วย <code>;</code>) และดูผลให้ผ่านก่อนไปขั้นถัดไป</p>
+<h3>ขั้น 1 — เตรียมเครื่อง</h3>
+<pre>winget install --id Git.Git -e          # ถ้ายังไม่มี git
+$ROOT = 'D:\fleet'                       # ไม่มีไดรฟ์ D: ใช้ C:\fleet · ห้ามอยู่ใน OneDrive ห้ามมีช่องว่าง
+New-Item -ItemType Directory -Force "$ROOT\apps","$ROOT\downloads","$ROOT\codenames","$ROOT\logs" | Out-Null</pre>
+<h3>ขั้น 2 — ติดตั้ง codename</h3>
+<pre>irm https://raw.githubusercontent.com/oldevill14/codename-fleet/main/install.ps1 | iex
+codename --version                      # ต้องได้ codename 0.2.1 ขึ้นไป</pre>
+<p>ตัวติดตั้งตรวจ SHA256 เองและวางไฟล์ที่ <code>%USERPROFILE%\.local\bin\</code> · ถ้าพิมพ์ <code>codename</code> แล้วไม่เจอ ให้เปิด PowerShell ใหม่</p>
+<h3>ขั้น 3 — สำรองค่าตั้งของ agent ก่อนลง Orca</h3>
+<pre>codename setup --root $ROOT</pre>
+<p>รอบนี้ <b>exit 1 ได้</b> (ยังไม่มี Orca) ขอแค่เห็นบรรทัด <code>config baseline written</code> · ไฟล์สำรองอยู่ใน <code>%USERPROFILE%\.codename\backups\</code></p>
+<h3>ขั้น 4 — ติดตั้ง Orca (ของ stablyai เท่านั้น)</h3>
+<pre>$rel = irm https://api.github.com/repos/stablyai/orca/releases/latest
+$ver = $rel.tag_name.TrimStart('v')
+$f = "$ROOT\downloads\orca-windows-setup-$ver.exe"
+irm ($rel.assets | ? name -eq 'orca-windows-setup.exe').browser_download_url -OutFile $f
+$yml = irm ($rel.assets | ? name -eq 'latest.yml').browser_download_url
+$want = ([regex]'(?m)^sha512:\s*(\S+)').Match($yml).Groups[1].Value
+$got = [Convert]::ToBase64String(([byte[]] -split ((Get-FileHash $f -Algorithm SHA512).Hash -replace '..','0x$&amp; ')))
+if ($got -ne $want) { throw "SHA512 ไม่ตรง — หยุด" } else { "SHA512 ok ($ver)" }
+Start-Process $f -ArgumentList '/S',"/D=$ROOT\apps\Orca" -Wait
+[Environment]::SetEnvironmentVariable('CODENAME_ORCA_BIN', "$ROOT\apps\Orca\resources\bin\orca.exe", 'User')
+[Environment]::SetEnvironmentVariable('ORCA_TELEMETRY_DISABLED', '1', 'User')
+$env:CODENAME_ORCA_BIN = "$ROOT\apps\Orca\resources\bin\orca.exe"; $env:ORCA_TELEMETRY_DISABLED = '1'</pre>
+<div class="box warn"><b>ระวัง:</b> ใช้ <code>orca.exe</code> เท่านั้น ห้ามชี้ไปที่ <code>orca.cmd</code> · อย่าลง "orca" ตัวอื่นจาก winget · เปิดแอป Orca เองหนึ่งครั้งแล้วปิดการส่งสถิติใน Settings → Privacy</div>
+<h3>ขั้น 5 — ให้ Orca รันเบื้องหลัง + setup จริง</h3>
+<pre>codename serve-task install
+codename serve-task status
+codename setup --root $ROOT
+codename doctor</pre>
+<p>ต้องเห็น PASS: orca binary, orca runtime, telemetry off, registry, fleet paths · WARN ที่ยอมรับได้: arra memory และ agent configs changed (Orca ใส่ hook) · ถ้า runtime ยังไม่ขึ้น: <code>schtasks /Run /TN codename-orca-serve</code></p>
+<h3>ขั้น 6 — ให้กำเนิด codename ตัวแรก</h3>
+<pre>codename birth --choose --engine codex --role "แรงงานโค้ดของเครื่องนี้"
+codename list
+codename ask &lt;ชื่อที่ได้&gt; "แนะนำตัวหน่อย ชื่ออะไร เผ่าอะไร"</pre>
+<p>ถ้าจะใช้ร่าง <code>claude</code> ต้องรัน <code>claude</code> แล้ว <code>/login</code> เองก่อน · ถ้าติด <code>blocked</code> ใช้ <code>codename peek &lt;ชื่อ&gt;</code> ดูหน้าจอ (ห้ามกดยอมรับแทน) · โหมดฟรีดูหัวข้อ 8</p>
+
+<h2 id="overview">1. ของที่ติดตั้งอยู่ที่ไหน</h2>
+<p>ตัวอย่างนี้ใช้ที่วางกองเรือ <code>D:\fleet</code> ถ้าเลือกที่อื่นให้แทนค่าตาม</p>
+<div class="tbl"><table>
+<tr><th>ของ</th><th>อยู่ที่ไหน</th></tr>
+<tr><td>codename (คำสั่งหลัก)</td><td><code>%USERPROFILE%\.local\bin\codename.exe</code> · พิมพ์สั้นๆ ว่า <code>cn</code> ก็ได้</td></tr>
+<tr><td>Orca (แอปที่ถือหน้าจอ terminal ของ codename)</td><td><code>D:\fleet\apps\Orca</code> · รันเบื้องหลังเองทุกครั้งที่ล็อกอินผ่าน scheduled task <code>codename-orca-serve</code> ไม่ต้องเปิดหน้าต่าง</td></tr>
+<tr><td>บ้านของกองเรือ</td><td><code>D:\fleet</code> · codename แต่ละตัวอยู่ใน <code>D:\fleet\codenames\&lt;ชื่อ&gt;</code></td></tr>
+<tr><td>ทะเบียนและค่าตั้ง</td><td><code>%USERPROFILE%\.codename\</code> (<code>fleet.json</code>, <code>engines.json</code>, <code>config.json</code>, <code>logs\</code>)</td></tr>
+<tr><td>Claude Code / Codex</td><td>ต้องติดตั้งและล็อกอินเองก่อนสร้าง codename ร่างนั้น (เปิด <code>claude</code> แล้วพิมพ์ <code>/login</code>)</td></tr>
+<tr><td>ความจำกลาง arra</td><td>ไม่บังคับ · ถ้าไม่ได้ลง <code>remember</code> / <code>recall</code> จะใช้ไม่ได้</td></tr>
+</table></div>
+
+<h2 id="daily">2. เริ่มวัน / จบวัน</h2>
+<p>เปิด <b>PowerShell</b> (หรือ Windows Terminal) แล้วพิมพ์:</p>
+<pre>codename doctor        # ตรวจสุขภาพ ทุกบรรทัดควรเป็น PASS (WARN บางข้อรู้อยู่แล้ว ดูข้อ 9)
+codename startup       # ปลุกทั้งกองเรือ (หลังรีบูต/ล็อกอินใหม่)
+codename list          # ดูว่าใครตื่น ใครหลับ ใครกำลังทำงาน</pre>
+<p>เลิกงาน:</p>
+<pre>codename shutdown      # ให้ทุกตัวหลับ ลูกเรือก่อน กัปตันทีหลัง (บ้านและความจำอยู่ครบ)</pre>
+<div class="box">สถานะใน <code>list</code>: <b>rest</b> = หลับ · <b>idle</b> = ตื่น ว่าง · <b>working</b> = กำลังทำงาน · <b>blocked</b> = ติดหน้าต่างที่ต้องให้คนตัดสินใจ (ใช้ <code>peek</code> ดู)</div>
+
+<h2 id="cmds">3. คำสั่งทั้งหมด</h2>
+<p>ทุกคำสั่งใส่ <code>--help</code> ดูรายละเอียดได้ · ใส่ <code>--json</code> ได้ผลแบบให้โปรแกรมอ่าน · ชื่อในวงเล็บคือชื่อย่อที่ใช้แทนกันได้</p>
+<div class="tbl"><table>
+<tr><th>คำสั่ง</th><th>ทำอะไร</th></tr>
+<tr><td><code>setup</code> (init)</td><td>ตั้งค่าครั้งแรก · <code>--free</code> = เพิ่ม engine โหมดฟรี</td></tr>
+<tr><td><code>startup</code> (up)</td><td>ปลุกทั้งกองเรือ</td></tr>
+<tr><td><code>shutdown</code> (down)</td><td>ให้ทั้งกองเรือหลับ</td></tr>
+<tr><td><code>list</code> (ls)</td><td>ตารางสมาชิก</td></tr>
+<tr><td><code>birth</code> (bud)</td><td>ให้กำเนิด codename ใหม่</td></tr>
+<tr><td><code>wakeup &lt;ชื่อ&gt;</code> (wake)</td><td>ปลุกตัวเดียว (คุยต่อจากเดิม · <code>--fresh</code> = เริ่มบทสนทนาใหม่)</td></tr>
+<tr><td><code>sleep &lt;ชื่อ&gt;</code> (rest)</td><td>ให้หลับตัวเดียว</td></tr>
+<tr><td><code>hey &lt;ชื่อ&gt; "ข้อความ"</code></td><td>ส่งข้อความแล้วไปทำอย่างอื่นต่อ ไม่รอ</td></tr>
+<tr><td><code>ask &lt;ชื่อ&gt; "ข้อความ"</code></td><td>ส่งแล้วรอ พิมพ์เฉพาะคำตอบล่าสุด (รอสูงสุด 600 วิ · <code>--timeout</code>)</td></tr>
+<tr><td><code>wait &lt;ชื่อ&gt;</code></td><td>รอจนว่าง</td></tr>
+<tr><td><code>peek &lt;ชื่อ&gt;</code></td><td>ดูหน้าจอล่าสุดของ codename</td></tr>
+<tr><td><code>wt &lt;ชื่อ&gt; &lt;slug&gt;</code></td><td>สร้าง worktree แยกให้งานโค้ด</td></tr>
+<tr><td><code>team up|status|down</code></td><td>ทีมงานโค้ดจากไฟล์ charter</td></tr>
+<tr><td><code>report "ข้อความ"</code> (done)</td><td>codename รายงานกลับหากัปตัน</td></tr>
+<tr><td><code>remember</code> (learn) / <code>recall</code> (search)</td><td>จด / ค้นความจำกลาง (ต้องมี arra)</td></tr>
+<tr><td><code>serve-task install|remove|status</code> (svc)</td><td>จัดการ task ที่รัน Orca เบื้องหลัง</td></tr>
+<tr><td><code>doctor</code> (check)</td><td>ตรวจสุขภาพทั้งระบบ</td></tr>
+</table></div>
+<p>รหัสออกของ <code>wait</code>/<code>ask</code>: <b>0</b> = เสร็จ · <b>2</b> = หมดเวลา · <b>3</b> = ติดหน้าต่างที่ต้องให้คนตอบ</p>
+
+<h2 id="talk">4. คุยกับ codename</h2>
+<pre>codename ask Lyra "สรุปสิ่งที่ทำวันนี้ให้หน่อย"
+codename hey Lyra "ช่วยรันเทสต์ในโปรเจกต์ X แล้วรายงานกลับ"
+codename wait Lyra
+codename peek Lyra</pre>
+<div class="box">อยากเห็นหน้าจอจริงของ codename: เปิดแอป <b>Orca</b> จาก <code>D:\fleet\apps\Orca\Orca.exe</code> จะเห็น terminal ของทุกตัว (ดูได้ แต่<b>อย่าเปิด agent ซ้ำ</b>ในบ้านเดียวกันจาก UI ของ Orca)</div>
+
+<h2 id="birth">5. ให้กำเนิด codename ใหม่</h2>
+<pre># ให้ codename ตั้งชื่อตัวเองตามธรรมเนียมเผ่า (แนะนำ)
+codename birth --choose --engine codex --role "แรงงานโค้ดโปรเจกต์ X"
+
+# หรือตั้งชื่อให้เอง
+codename birth Lyra --engine claude --role "ผู้ช่วยเอกสาร"</pre>
+<ul>
+<li>engine ที่มี: <code>claude</code> (ต้องล็อกอินก่อน) · <code>codex</code> · <code>grok</code> · <code>hermes</code> · และ <code>claude-free</code> / <code>codex-free</code> หลังเปิดโหมดฟรี</li>
+<li>หลังเกิด โปรแกรมจะให้สมาชิกใหม่แนะนำตัว (ชื่อ, เผ่า codename, พี่เก่งเป็นผู้ก่อตั้ง, ลงท้าย ค่ะ) ถ้าไม่ผ่านจะแจ้ง · ข้ามได้ด้วย <code>--no-verify</code></li>
+<li><code>--captain</code> = ตั้งเป็นกัปตัน (มีได้ตัวเดียว) · <code>--no-wake</code> = เกิดแล้วยังไม่ต้องปลุก</li>
+</ul>
+
+<h2 id="code">6. งานโค้ด: worktree และทีม</h2>
+<pre>codename wt Lyra fix-login            # worktree แยกชื่อ fix-login ให้ Lyra
+codename team up %USERPROFILE%\.codename\teams\x.yaml  # ตั้งทีมจาก charter
+codename team status
+codename team down                     # ปิดทีม: commit งานค้างลง branch ก่อนลบ worktree</pre>
+<p>charter (YAML) มี <code>name</code>, <code>repo</code> (ชื่อ codename หรือ path ของ git repo), <code>lead</code> (ไม่บังคับ), <code>workers</code> (<code>name</code>, <code>engine</code>, <code>task</code>) · engine โหมดฟรียังเป็นลูกทีมไม่ได้</p>
+
+<h2 id="memory">7. ความจำกลาง (arra)</h2>
+<pre>codename remember "บทเรียน: ..."
+codename recall "คำค้น" --limit 5</pre>
+<div class="box">ต้องมี arra รันอยู่ที่พอร์ต 47778 · ถ้ายังไม่มี <code>doctor</code> จะขึ้น WARN arra memory</div>
+
+<h2 id="free">8. โหมดฟรี (Free Claude Code)</h2>
+<p>ให้ codename ใช้โมเดลฟรี (เช่น NVIDIA NIM ประมาณ 40 ครั้ง/นาที) แทนบัญชีที่จ่ายเงิน เหมาะกับงานเบา · โมเดลฟรีพูดไทยและรักษาบุคลิกได้แย่กว่า</p>
+<h3>ขั้นที่ 1 — ติดตั้ง FCC (ทำเองใน PowerShell)</h3>
+<pre>&amp; ([scriptblock]::Create((irm "https://raw.githubusercontent.com/Alishahryar1/free-claude-code/main/scripts/install.ps1")))</pre>
+<ul>
+<li>ตอนถามว่าจะลง Claude Code / Codex ไหม → ตอบ <b>ไม่</b> (มีอยู่แล้ว เดี๋ยวซ้อนกัน)</li>
+<li>เปิด Admin UI ของ FCC → Providers → NVIDIA NIM → Add key (สร้างคีย์ที่ build.nvidia.com/settings/api-keys) → Save → Apply</li>
+<li>ตั้ง <b>Host = 127.0.0.1</b> และเปิด <b>Proxy Authentication</b> (ค่าเริ่มต้นเปิดให้ทุกเครื่องใน LAN/Tailscale ใช้คีย์เราได้)</li>
+<li><b>อย่ากด</b> Integrations → Connect ให้ Claude Desktop / VS Code ถ้าไม่ได้ตั้งใจให้แอปพวกนั้นใช้โมเดลฟรีด้วย</li>
+</ul>
+<h3>ขั้นที่ 2 — เปิดใช้ใน codename</h3>
+<pre>codename setup --free
+codename doctor          # หัวข้อ free mode ควรเป็น PASS
+codename birth --choose --engine claude-free --role "ผู้ช่วยงานเบา" --no-verify</pre>
+<p>ถ้า FCC ล่มหรือยังไม่ใส่คีย์ codename จะหยุดและบอกให้เปิด Admin UI / รัน <code>fcc-doctor</code> — <b>ไม่ต้อง /login</b> ในโหมดฟรี</p>
+
+<h2 id="trouble">9. แก้ปัญหา</h2>
+<div class="tbl"><table>
+<tr><th>อาการ</th><th>ทำอย่างไร</th></tr>
+<tr><td><code>runtime_unavailable</code> / doctor บอก orca runtime ไม่พร้อม</td><td><code>codename startup</code> · ถ้าไม่หาย <code>codename serve-task status</code> แล้วล็อกเอาต์-ล็อกอินใหม่ หรือเปิดแอป Orca</td></tr>
+<tr><td>codename สถานะ <b>blocked</b></td><td><code>codename peek &lt;ชื่อ&gt;</code> ดูว่าติดหน้าต่างอะไร (ล็อกอิน, ถามเรื่อง hook, API key) → เจ้าของเครื่องตัดสินใจเอง codename จะไม่กดแทน</td></tr>
+<tr><td>"is not logged in" ตอน birth/wakeup</td><td>เปิด <code>claude</code> (หรือ <code>codex</code>) ใน PowerShell แล้วล็อกอินเอง แล้วสั่งใหม่</td></tr>
+<tr><td>WARN agent configs changed since baseline</td><td>Orca ใส่ hook ในไฟล์ตั้งค่าของ claude/codex/gemini · ตอนนี้ปล่อยไว้ (ใช้ได้ปกติ) · ไฟล์ก่อนถูกแก้อยู่ที่ <code>%USERPROFILE%\.codename\backups\pre-orca-*\files\</code> คัดลอกกลับได้ถ้าต้องการคืนค่า</td></tr>
+<tr><td>WARN arra memory</td><td>ยังไม่ได้ลง arra (ข้อ 7)</td></tr>
+<tr><td>doctor บอก "started twice?"</td><td>มีคนเปิด agent ซ้ำในบ้านเดียวกัน → ปิดตัวที่เปิดเองใน Orca</td></tr>
+<tr><td>ภาษาไทยเป็น ??? ใน PowerShell</td><td>แค่หน้าจอ console · ไฟล์จริงถูกต้อง · ใช้ Windows Terminal หรือเปิดไฟล์ดูแทน</td></tr>
+<tr><td>อยากดูว่า codename ทำอะไรไป</td><td>log รายวันที่ <code>%USERPROFILE%\.codename\logs\</code> · หรือเติม <code>--verbose</code> ท้ายคำสั่ง</td></tr>
+</table></div>
+
+<h2 id="rules">10. ข้อห้ามและไฟล์สำคัญ</h2>
+<ul>
+<li>ห้ามวางกองเรือในโฟลเดอร์ <b>OneDrive</b> · ใช้เช่น <code>D:\fleet</code></li>
+<li>ห้ามชี้ <code>CODENAME_ORCA_BIN</code> ไปที่ <code>orca.cmd</code> — ต้องเป็น <code>D:\fleet\apps\Orca\resources\bin\orca.exe</code> (กันช่องโหว่ BatBadBut)</li>
+<li>อย่าเปิด agent ซ้ำจาก UI ของ Orca ในบ้านที่ codename คุมอยู่</li>
+<li>codename ไม่ล็อกอินแทน ไม่กดยอมรับข้อตกลง และไม่ตั้ง <code>ANTHROPIC_*</code> ให้ใคร — เรื่องพวกนี้เจ้าของเครื่องทำเอง</li>
+<li>อัปเดต codename: <code>irm https://raw.githubusercontent.com/oldevill14/codename-fleet/main/install.ps1 | iex</code> (เก็บตัวเก่าเป็น <code>.bak</code> ให้)</li>
+<li>คู่มือฉบับเต็ม: <a href="https://github.com/oldevill14/codename-fleet/blob/main/docs/USAGE-th.md">docs/USAGE-th.md</a></li>
+</ul>
+</main>
+</body>
+</html>
