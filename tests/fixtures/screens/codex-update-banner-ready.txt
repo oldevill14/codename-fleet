@@ -1,0 +1,17 @@
+╭─────────────────────────────────────────────────╮
+│ ✨ Update available! 0.146.1 -> 0.162.1         │
+│ Run npm install -g @openai/codex to update.     │
+╰─────────────────────────────────────────────────╯
+
+╭──────────────────────────────────────────────╮
+│ >_ OpenAI Codex (v0.146.1)                   │
+│                                              │
+│ model:     gpt-5.5 medium   /model to change │
+│ directory: D:\fleet\codenames\.nursery       │
+╰──────────────────────────────────────────────╯
+
+  To get started, describe a task or try one of these commands:
+
+› Explain this codebase
+
+  gpt-5.5 medium · D:\fleet\codenames\.nursery

@@ -1,0 +1,2 @@
+249 commands (schema v1).
+Run `orca agent-context --json` for the full machine-readable command schema.

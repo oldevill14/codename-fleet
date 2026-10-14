@@ -1,0 +1,19 @@
+# Example team charter for `codename team up examples/charter.yaml`
+#
+# name    : team name (letters, digits, - or _). Used for worktree branches
+#           (team-<name>-<worker>) and terminal titles (<name>-<worker>).
+# repo    : the git repo workers branch from — a codename's name from the
+#           registry (its home repo) or a path to any git repo.
+# lead    : optional codename that receives a briefing via `codename hey`.
+# workers : each gets its own Orca worktree + terminal and one task.
+#           engine defaults to codex; any key from engines.json works.
+name: demo
+repo: lyra
+lead: lyra
+workers:
+  - name: hello
+    engine: codex
+    task: "Create HELLO.md containing one line: CN-TEAM-OK. Commit it, then run: codename report \"hello done\""
+  - name: review
+    engine: claude
+    task: "Read README.md and list three unclear sentences in REVIEW.md. Commit it, then run: codename report \"review done\""

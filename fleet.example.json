@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "captainTerminal": "term-1",
+  "captainRepoId": "repo-1",
+  "codenames": [
+    {
+      "name": "lyra",
+      "number": 1,
+      "species": "codename",
+      "engine": "claude",
+      "home": "C:\\fleet\\codenames\\lyra",
+      "born": "2026-01-01 09:00",
+      "role": "captain of this machine",
+      "orca": { "repoId": "repo-2", "worktree": "repo-2::C:\\fleet\\codenames\\lyra", "terminal": "term-2" },
+      "captain": true,
+      "awake": true
+    }
+  ]
+}

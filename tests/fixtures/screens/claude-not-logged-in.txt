@@ -1,0 +1,13 @@
+╭───────────────────────────────────────────────────╮
+│ ✻ Welcome to Claude Code!                         │
+│                                                   │
+│   /help for help, /status for your current setup  │
+│                                                   │
+│   cwd: D:\fleet\codenames\.nursery                │
+│                                                   │
+│   API Usage Billing                               │
+╰───────────────────────────────────────────────────╯
+
+> Try "fix typecheck errors"
+
+  Not logged in · Run /login                     ? for shortcuts

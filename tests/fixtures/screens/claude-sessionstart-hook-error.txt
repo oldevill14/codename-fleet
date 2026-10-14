@@ -1,0 +1,9 @@
+╭───────────────────────────────────────────────────╮
+│ ✻ Welcome to Claude Code!                         │
+│   cwd: D:\fleet\codenames\lyra                    │
+╰───────────────────────────────────────────────────╯
+
+  ⎿  SessionStart:startup hook error: Failed with non-blocking status code: /usr/bin/bash: line 1: C:/Users/x/.orca/agent-hooks/claude-hook.cmd: No such file or directory
+
+> 
+                                                 ? for shortcuts

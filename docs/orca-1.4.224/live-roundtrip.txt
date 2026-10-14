@@ -1,0 +1,110 @@
+--- create
+{
+  "id": "ce9f5d9e-08ee-43c4-a0b2-bebdf487d6d5",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_373e9bd9-d68e-4587-a4c0-55f46987b3ce",
+      "tabId": "a97a920a-71a7-4cb1-9ba0-342368871eea",
+      "paneKey": "a97a920a-71a7-4cb1-9ba0-342368871eea:0d80be62-dbab-4439-bba1-6d0eb50fca15",
+      "ptyId": "6915f00c-feb5-4b0f-8d1d-4d56ee136b4d::D:/fleet/sandbox@@6cefba66",
+      "worktreeId": "6915f00c-feb5-4b0f-8d1d-4d56ee136b4d::D:/fleet/sandbox",
+      "title": "cn-probe",
+      "executionHostId": "local",
+      "incarnationId": "9860a1a2-0193-4457-8e58-2f378bb1745e",
+      "hostPlatform": "win32",
+      "surface": "background",
+      "warning": "Terminal term_373e9bd9-d68e-4587-a4c0-55f46987b3ce is running, but Orca could not make it discoverable. Run `orca terminal focus --terminal term_373e9bd9-d68e-4587-a4c0-55f46987b3ce` to reveal and focus it."
+    }
+  },
+  "_meta": {
+    "runtimeId": "15d92189-8827-446f-a9c9-d3c2cdcb0287"
+  }
+}
+HANDLE=term_373e9bd9-d68e-4587-a4c0-55f46987b3ce
+--- send
+{
+  "id": "6e7ffb28-b1ac-456c-9fba-8f407b8bcd97",
+  "ok": true,
+  "result": {
+    "send": {
+      "handle": "term_373e9bd9-d68e-4587-a4c0-55f46987b3ce",
+      "accepted": true,
+      "bytesWritten": 17,
+      "prompt": {
+        "requestId": "e59a6fcc-5f30-4b04-98eb-361cedbe597b",
+        "stages": [
+          "input_accepted"
+        ],
+        "provider": "unsupported",
+        "observation": "unsupported",
+        "processIncarnation": "9860a1a2-0193-4457-8e58-2f378bb1745e",
+        "generation": 1,
+        "baselineWorkingSequence": 0
+      }
+    },
+    "mutation": {
+      "requestId": "e59a6fcc-5f30-4b04-98eb-361cedbe597b",
+      "replayed": false
+    },
+    "warnings": [
+      "input was accepted, but this provider cannot report delivery. Inspect the terminal before retrying."
+    ]
+  },
+  "_meta": {
+    "runtimeId": "15d92189-8827-446f-a9c9-d3c2cdcb0287"
+  }
+}
+--- wait
+{
+  "id": "7d3bf3d7-b0c6-4826-a83b-567d3b8c9b82",
+  "ok": false,
+  "error": {
+    "code": "timeout",
+    "message": "timeout"
+  },
+  "_meta": {
+    "runtimeId": "15d92189-8827-446f-a9c9-d3c2cdcb0287"
+  }
+}
+--- read
+{
+  "id": "34fd3fd2-266c-4533-9141-ea633562a0a7",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_373e9bd9-d68e-4587-a4c0-55f46987b3ce",
+      "status": "running",
+      "tail": [
+        "PS D:\\fleet\\sandbox>eecho Cecho CNecho CN-echo CN-Pecho CN-PRecho CN-PROecho CN-PROBecho CN-PROBEecho CN-PROBE-echo CN-PROBE-Oecho CN-PROBE-OK",
+        "CN-PROBE-OK",
+        "PS D:\\fleet\\sandbox>"
+      ],
+      "truncated": false,
+      "limited": false,
+      "oldestCursor": "0",
+      "nextCursor": "2",
+      "latestCursor": "2",
+      "returnedLineCount": 3,
+      "source": "stream"
+    }
+  },
+  "_meta": {
+    "runtimeId": "15d92189-8827-446f-a9c9-d3c2cdcb0287"
+  }
+}
+--- close
+{
+  "id": "fe0dd325-0148-4005-b615-6b8ae7c8b101",
+  "ok": true,
+  "result": {
+    "close": {
+      "handle": "term_373e9bd9-d68e-4587-a4c0-55f46987b3ce",
+      "tabId": "a97a920a-71a7-4cb1-9ba0-342368871eea",
+      "ptyKilled": true
+    }
+  },
+  "_meta": {
+    "runtimeId": "15d92189-8827-446f-a9c9-d3c2cdcb0287"
+  }
+}
